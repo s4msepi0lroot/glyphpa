@@ -1,0 +1,71 @@
+name: Build TapGlyph APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main", "master" ]
+    tags: [ "v*" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build debug APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout TapGlyph
+        uses: actions/checkout@v4
+
+      - name: Checkout official Nothing Glyph SDK
+        uses: actions/checkout@v4
+        with:
+          repository: Nothing-Developer-Programme/Glyph-Developer-Kit
+          path: .glyph-developer-kit
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK components
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Add official Glyph SDK to app
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p app/libs
+          SDK_FILE="$(find .glyph-developer-kit/sdk -type f -iname 'KetchumSDK_Community_*.jar' | sort -V | tail -n 1)"
+          if [[ -z "$SDK_FILE" ]]; then
+            echo "Could not find KetchumSDK_Community_*.jar in the official Nothing repository."
+            find .glyph-developer-kit/sdk -maxdepth 3 -type f -print || true
+            exit 1
+          fi
+          cp "$SDK_FILE" app/libs/
+          echo "Using Nothing SDK: $(basename "$SDK_FILE")"
+
+      - name: Build APK
+        run: gradle --no-daemon :app:assembleDebug
+
+      - name: Rename APK
+        run: cp app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/TapGlyph-debug.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TapGlyph-debug-apk
+          path: app/build/outputs/apk/debug/TapGlyph-debug.apk
+          if-no-files-found: error
+          retention-days: 14

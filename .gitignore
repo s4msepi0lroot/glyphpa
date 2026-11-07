@@ -1,3 +1,8 @@
-node_modules
-dist
+.gradle/
+.idea/
+*.iml
+local.properties
+**/build/
+app/libs/*.jar
+app/libs/*.aar
 .DS_Store
