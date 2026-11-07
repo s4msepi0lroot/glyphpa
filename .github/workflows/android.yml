@@ -51,14 +51,24 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p app/libs
-          SDK_FILE="$(find .glyph-developer-kit/sdk -type f -iname 'KetchumSDK_Community_*.jar' | sort -V | tail -n 1)"
+
+          # Nothing now publishes the Glyph SDK as an AAR (currently under sdk/).
+          # Keep the legacy JAR fallback for older revisions of the official repo.
+          SDK_FILE="$(find .glyph-developer-kit -type f -iname 'glyph-matrix-sdk-*.aar' | sort -V | tail -n 1)"
           if [[ -z "$SDK_FILE" ]]; then
-            echo "Could not find KetchumSDK_Community_*.jar in the official Nothing repository."
-            find .glyph-developer-kit/sdk -maxdepth 3 -type f -print || true
+            SDK_FILE="$(find .glyph-developer-kit -type f -iname 'KetchumSDK_Community_*.jar' | sort -V | tail -n 1)"
+          fi
+
+          if [[ -z "$SDK_FILE" ]]; then
+            echo "Could not find the official Nothing Glyph SDK (.aar or legacy .jar)."
+            echo "Files available in the checked-out repository:"
+            find .glyph-developer-kit -type f -print | sort || true
             exit 1
           fi
+
           cp "$SDK_FILE" app/libs/
-          echo "Using Nothing SDK: $(basename "$SDK_FILE")"
+          echo "Using official Nothing SDK: $SDK_FILE"
+          ls -lh app/libs/
 
       - name: Build APK
         run: gradle --no-daemon :app:assembleDebug

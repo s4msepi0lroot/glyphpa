@@ -37,7 +37,7 @@ Android не предоставляет стороннему приложени�
 6. Внизу страницы найди **Artifacts** и скачай **TapGlyph-debug-apk**.
 7. Распакуй скачанный архив — внутри будет `TapGlyph-debug.apk`.
 
-Workflow сам получает официальный `KetchumSDK_Community_*.jar` из репозитория Nothing, кладёт его в `app/libs` только на время CI-сборки и собирает APK. SDK JAR не хранится в этом проекте.
+Workflow сам получает официальный Glyph SDK из репозитория Nothing. Текущая версия SDK распространяется как `glyph-matrix-sdk-*.aar` (в том числе в подкаталоге `sdk/`); workflow ищет AAR по всему репозиторию, копирует его в `app/libs` только на время CI-сборки и собирает APK. Для совместимости оставлен запасной поиск старого `KetchumSDK_Community_*.jar`. Бинарный SDK не хранится в этом проекте.
 
 Сборка запускается также при push в `main`/`master` и для pull request.
 
@@ -83,7 +83,7 @@ adb shell pm list packages | grep -Ei 'sber|mirpay|wallet'
 ./gradlew :app:assembleDebug
 ```
 
-При локальной сборке положи официальный `KetchumSDK_Community_*.jar` в `app/libs/`, иначе код соберётся, но управление Glyph на устройстве не заработает (приложение покажет статус об отсутствующем SDK).
+При локальной сборке положи официальный `glyph-matrix-sdk-*.aar` (или старый `KetchumSDK_Community_*.jar`) в `app/libs/`, иначе код соберётся, но управление Glyph на устройстве не заработает (приложение покажет статус об отсутствующем SDK).
 
 ## Примечания
 
