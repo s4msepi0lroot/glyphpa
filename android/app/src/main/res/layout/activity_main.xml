@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="GLYPH · NFC PAY"
+                android:textColor="@color/accent"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Анимация Glyph при оплате телефоном"
+                android:textColor="@color/muted"
+                android:textSize="14sp" />
+
+            <!-- Статус Glyph -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.GlyphPay.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/Text.Section"
+                        android:text="Устройство" />
+
+                    <TextView
+                        android:id="@+id/tvDevice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="…"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/btnTest"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="▶  Проверить анимацию" />
+
+                    <Button
+                        android:id="@+id/btnTestBackground"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="💳  Тест как при оплате (через 5 с)" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Разрешения -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.GlyphPay.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/Text.Section"
+                        android:text="Настройка (3 шага)" />
+
+                    <TextView
+                        android:id="@+id/tvNotif"
+                        style="@style/Text.Status" />
+
+                    <Button
+                        android:id="@+id/btnRestricted"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0. Разрешить ограниченные настройки" />
+
+                    <Button
+                        android:id="@+id/btnNotif"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1. Доступ к уведомлениям" />
+
+                    <TextView
+                        android:id="@+id/tvOverlay"
+                        style="@style/Text.Status" />
+
+                    <Button
+                        android:id="@+id/btnOverlay"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2. Поверх других окон" />
+
+                    <TextView
+                        android:id="@+id/tvBattery"
+                        style="@style/Text.Status" />
+
+                    <Button
+                        android:id="@+id/btnBattery"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3. Работа в фоне" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Настройки -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.GlyphPay.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/Text.Section"
+                        android:text="Параметры" />
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switchEnabled"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Анимация при оплате включена"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        style="@style/Text.Label"
+                        android:text="Стиль анимации" />
+
+                    <Spinner
+                        android:id="@+id/spinnerStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp" />
+
+                    <TextView
+                        style="@style/Text.Label"
+                        android:text="Яркость" />
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/sliderBrightness"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:valueFrom="10"
+                        android:valueTo="100"
+                        android:stepSize="5" />
+
+                    <TextView
+                        style="@style/Text.Label"
+                        android:text="Свои приложения (package name через запятую)" />
+
+                    <EditText
+                        android:id="@+id/etExtra"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ru.example.bank, com.example.wallet"
+                        android:inputType="textMultiLine"
+                        android:minHeight="48dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/muted"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/btnSaveExtra"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Сохранить" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Последнее срабатывание -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.GlyphPay.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/Text.Section"
+                        android:text="Последнее срабатывание" />
+
+                    <TextView
+                        android:id="@+id/tvLast"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="monospace"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

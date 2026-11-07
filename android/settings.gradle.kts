@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "GlyphPay"
+rootProject.name = "GlyphNfcPay"
 include(":app")
