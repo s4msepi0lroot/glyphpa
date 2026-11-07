@@ -27,6 +27,8 @@ Android не предоставляет стороннему приложени�
 
 ## Сборка APK через GitHub Actions
 
+В workflow используется `android-actions/setup-android@v4` с явным `packages: platform-tools`. Не добавляй пакет SDK с именем `tools`: Google удалил старый пакет, а `sdkmanager` завершает работу с ошибкой `Failed to find package 'tools'`. Современные command-line tools устанавливаются самим action; Android Platform 35 и Build Tools 35.0.0 устанавливаются следующим шагом workflow.
+
 1. Создай пустой репозиторий на GitHub.
 2. Загрузи в него все файлы этой папки (содержимое проекта, а не ZIP-файл).
 3. Открой вкладку **Actions**. Если GitHub попросит включить Actions, разреши запуск workflow.

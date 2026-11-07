@@ -26,7 +26,11 @@ jobs:
           path: .glyph-developer-kit
 
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
+        with:
+          # The legacy SDK package "tools" has been removed by Google.
+          # setup-android installs command-line tools separately; we only need platform-tools here.
+          packages: platform-tools
 
       - name: Install Android SDK components
         run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
